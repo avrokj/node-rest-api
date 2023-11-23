@@ -78,6 +78,28 @@ app.get("/authors/:id", async (request, response) => {
   }
 });
 
+app.delete("/books/:id", async (request, response) => {
+  const { id } = request.params;
+
+  try {
+    //const testing =
+    await prisma.books.delete({
+      where: {
+        id: Number(id),
+      },
+    });
+
+    //console.log(testing);
+    response.status(200).send({
+      message: "Book deleted",
+    });
+  } catch (error) {
+    response.status(401).json({
+      message: "Something went wrong. Try again.",
+    });
+  }
+});
+
 const PORT = 3000;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`);
